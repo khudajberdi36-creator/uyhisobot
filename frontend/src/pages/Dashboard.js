@@ -266,6 +266,7 @@ export default function Dashboard() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [topQarzdorlar, setTopQarzdorlar] = useState([]);
   const [topMahsulotlar, setTopMahsulotlar] = useState([]);
+  const [balans, setBalans] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showQarzdorModal, setShowQarzdorModal] = useState(null); // null | 'barcha' | 'muddati'
   const [showMahsulotStat, setShowMahsulotStat] = useState(false);
@@ -280,13 +281,15 @@ export default function Dashboard() {
       axios.get('/api/stats/monthly'),
       axios.get('/api/stats/top-qarzdorlar'),
       axios.get('/api/stats/top-mahsulotlar?davr=bugun'),
-    ]).then(([s, o, qd, monthly, top, topM]) => {
+      axios.get('/api/byudjet/balans').catch(() => ({ data: null })),
+    ]).then(([s, o, qd, monthly, top, topM, byudjet]) => {
       setStats(s.data);
       setOverdue(o.data.slice(0, 5));
       setAllQarzdorlar(qd.data);
       setMonthlyData(monthly.data);
       setTopQarzdorlar(top.data);
       setTopMahsulotlar(topM.data || []);
+      setBalans(byudjet.data);
     }).catch(err => {
       console.error('Dashboard load xatosi:', err);
     }).finally(() => setLoading(false));
@@ -371,6 +374,19 @@ export default function Dashboard() {
           <div className="stat-label">Bugungi tushum</div>
           <div className="stat-value" style={{ fontSize: 16 }}>{formatSum(stats?.bugun_naxt_tushum)} so'm</div>
           <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>Statistika →</div>
+        </div>
+        <div
+          className="stat-card purple"
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/byudjet')}
+          title="Kirim-Chiqim byudjetini ko'rish"
+        >
+          <div className="stat-icon">📊</div>
+          <div className="stat-label">Oy balansi</div>
+          <div className="stat-value" style={{ fontSize: 18, color: (balans?.qoldiq ?? 0) >= 0 ? 'var(--green)' : 'var(--red)' }}>
+            {(balans?.qoldiq ?? 0) >= 0 ? '+' : ''}{formatSum(balans?.qoldiq)}
+          </div>
+          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>Byudjet →</div>
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import Avatar from './Avatar';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ const getNavItems = (role) => [
   { to: '/qarzdorlar',     label: "Oila a'zolari",     icon: '👨‍👩‍👧‍👦' },
   { to: '/muddati-otgan',  label: "Muddati o'tgan",   icon: '⚠️' },
   { to: '/mahsulotlar',    label: 'Tovarlar',          icon: '🛒' },
+  { to: '/byudjet',        label: 'Kirim-Chiqim',      icon: '💰' },
   { to: '/sozlamalar',     label: 'Sozlamalar',        icon: '⚙️' },
   { to: '/naxt-sotuv',     label: 'Naqd xarid',        icon: '💵' },
   ...(role === 'admin' ? [
@@ -16,6 +18,21 @@ const getNavItems = (role) => [
     { to: '/kirish-tarixi',  label: 'Kirish tarixi',   icon: '🛡️' },
   ] : []),
 ];
+
+// ─── Theme Toggle ─────────────────────────────────────────────────────────────
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      className="theme-toggle"
+      onClick={toggleTheme}
+      title={theme === 'dark' ? "Kunduzgi rejimga o'tish" : 'Tungi rejimga o\'tish'}
+      aria-label="Mavzuni almashtirish"
+    >
+      {theme === 'dark' ? '☀️' : '🌙'}
+    </button>
+  );
+}
 
 // ─── Global Qidiruv ───────────────────────────────────────────────────────────
 function GlobalSearch() {
@@ -645,6 +662,7 @@ export default function Layout() {
           </div>
 
           <div className="topbar-right">
+            <ThemeToggle />
             {/* Hisobot tugmasi — desktop */}
             <button
               className="btn btn-secondary btn-sm"

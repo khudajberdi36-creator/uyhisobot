@@ -111,6 +111,30 @@ async function initDB() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS kirimlar (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      sana DATE NOT NULL,
+      tavsif TEXT NOT NULL,
+      summa NUMERIC NOT NULL,
+      manba TEXT DEFAULT 'boshqa',
+      kim_kiritgan TEXT,
+      izoh TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS chiqimlar (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      sana DATE NOT NULL,
+      tavsif TEXT NOT NULL,
+      summa NUMERIC NOT NULL,
+      kategoriya TEXT NOT NULL DEFAULT 'boshqa',
+      kim_kiritgan TEXT,
+      izoh TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS kirish_tarixi (
       id SERIAL PRIMARY KEY,
       user_id INTEGER,

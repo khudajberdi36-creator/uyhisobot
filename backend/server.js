@@ -20,6 +20,7 @@ app.use('/api/stats', require('./routes/stats'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/mahsulotlar', require('./routes/mahsulotlar'));
 app.use('/api/kirish-tarixi', require('./routes/kirish_tarixi'));
+app.use('/api/byudjet', require('./routes/byudjet'));
 
 app.get("/", (req, res) => res.json({ status: "ok", message: "Uy Hisobot API ✅" }));
 app.get("/api/health", (req, res) => res.json({ status: "ok", uptime: process.uptime(), timestamp: new Date().toISOString() }));
