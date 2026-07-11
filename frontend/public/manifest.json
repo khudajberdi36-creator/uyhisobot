@@ -1,0 +1,26 @@
+{
+  "short_name": "Uy Hisobot",
+  "name": "Uy Hisobot — Oilaviy boshqaruv",
+  "description": "Qarzlarni oson va qulay boshqaring",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#6366f1",
+  "background_color": "#0f0f0f",
+  "orientation": "portrait",
+  "lang": "uz",
+  "categories": ["finance", "business"]
+}

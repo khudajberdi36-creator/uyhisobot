@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: uyhisobot-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: RESET_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: USER1_LOGIN
+        sync: false
+      - key: USER1_PASSWORD
+        sync: false
+      - key: USER1_NAME
+        sync: false
+      - key: USER1_DOKON
+        sync: false
+      - key: ADMIN_LOGIN
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

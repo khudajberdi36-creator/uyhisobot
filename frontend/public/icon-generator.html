@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Do'kon Qarz Icon Generator</title>
+<style>
+  body { font-family: sans-serif; background: #111; color: #fff; padding: 40px; text-align: center; }
+  canvas { border-radius: 24px; margin: 16px; }
+  .btn { background: #6366f1; color: white; border: none; padding: 12px 28px; border-radius: 10px; font-size: 15px; cursor: pointer; margin: 8px; }
+  .btn:hover { background: #4f46e5; }
+  p { color: #999; font-size: 13px; }
+</style>
+</head>
+<body>
+<h2>🏪 Do'kon Qarz — Ikonka Generator</h2>
+<p>Quyidagi ikonkalarni yuklab oling va <code>frontend/public/</code> papkasiga qo'ying</p>
+
+<div>
+  <canvas id="c192" width="192" height="192"></canvas>
+  <canvas id="c512" width="512" height="512"></canvas>
+</div>
+
+<br>
+<button class="btn" onclick="download('c192','icon-192.png')">⬇️ icon-192.png yuklab olish</button>
+<button class="btn" onclick="download('c512','icon-512.png')">⬇️ icon-512.png yuklab olish</button>
+
+<p style="margin-top:24px">Yoki <strong>o'zingizning logotipingizni</strong> PNG qilib ham qo'yishingiz mumkin — <br>
+faqat nomi <code>icon-192.png</code> va <code>icon-512.png</code> bo'lsin, o'lchami mos bo'lsin.</p>
+
+<script>
+function drawIcon(id, size) {
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext('2d');
+  const s = size;
+  
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, s, s);
+  grad.addColorStop(0, '#1a1a2e');
+  grad.addColorStop(1, '#16213e');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, s, s, s * 0.18);
+  ctx.fill();
+  
+  // Purple glow circle
+  const glow = ctx.createRadialGradient(s*0.5, s*0.45, 0, s*0.5, s*0.45, s*0.45);
+  glow.addColorStop(0, 'rgba(99,102,241,0.35)');
+  glow.addColorStop(1, 'rgba(99,102,241,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, s, s);
+  
+  // Shop building
+  const p = s * 0.1;
+  ctx.fillStyle = '#6366f1';
+  
+  // Roof (triangle)
+  ctx.beginPath();
+  ctx.moveTo(s*0.5, s*0.17);
+  ctx.lineTo(s*0.82, s*0.38);
+  ctx.lineTo(s*0.18, s*0.38);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Roof shine
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.beginPath();
+  ctx.moveTo(s*0.5, s*0.17);
+  ctx.lineTo(s*0.82, s*0.38);
+  ctx.lineTo(s*0.5, s*0.38);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Building body
+  ctx.fillStyle = '#4f46e5';
+  ctx.beginPath();
+  ctx.roundRect(s*0.2, s*0.37, s*0.6, s*0.42, [0, 0, s*0.04, s*0.04]);
+  ctx.fill();
+  
+  // Door
+  ctx.fillStyle = '#312e81';
+  ctx.beginPath();
+  ctx.roundRect(s*0.42, s*0.58, s*0.16, s*0.21, [s*0.04, s*0.04, 0, 0]);
+  ctx.fill();
+  
+  // Windows
+  ctx.fillStyle = '#a5b4fc';
+  ctx.shadowColor = '#a5b4fc';
+  ctx.shadowBlur = s * 0.04;
+  // left window
+  ctx.beginPath();
+  ctx.roundRect(s*0.27, s*0.44, s*0.14, s*0.11, s*0.02);
+  ctx.fill();
+  // right window
+  ctx.beginPath();
+  ctx.roundRect(s*0.59, s*0.44, s*0.14, s*0.11, s*0.02);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  // Bottom bar (nalichnik)
+  ctx.fillStyle = '#6366f1';
+  ctx.beginPath();
+  ctx.roundRect(s*0.14, s*0.78, s*0.72, s*0.06, s*0.02);
+  ctx.fill();
+  
+  // Text "QZ" or coin symbol at bottom
+  ctx.fillStyle = '#fbbf24';
+  ctx.shadowColor = '#fbbf24';
+  ctx.shadowBlur = s * 0.04;
+  ctx.font = `bold ${s*0.1}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('₸', s*0.5, s*0.88);
+  ctx.shadowBlur = 0;
+}
+
+drawIcon('c192', 192);
+drawIcon('c512', 512);
+
+function download(id, filename) {
+  const canvas = document.getElementById(id);
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = filename;
+  a.click();
+}
+</script>
+</body>
+</html>
