@@ -1,10 +1,11 @@
-const CACHE_NAME = 'dokon-qarz-v4';
+const CACHE_NAME = 'dokon-qarz-v6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
+  '/favicon.ico',
 ];
 
 // O'rnatish — barcha statik fayllarni cache qilish
@@ -26,7 +27,7 @@ self.addEventListener('activate', (event) => {
 });
 
 // Offline ma'lumotlar uchun alohida cache
-const DATA_CACHE = 'dokon-qarz-data-v4';
+const DATA_CACHE = 'dokon-qarz-data-v6';
 
 // Offline saqlash uchun API endpointlar
 const CACHE_APIS = [
